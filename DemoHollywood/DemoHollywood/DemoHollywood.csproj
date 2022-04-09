@@ -1,0 +1,134 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\LoginScreen\CheckImage.png" />
+    <None Remove="Images\LoginScreen\Doctor.png" />
+    <None Remove="Images\LoginScreen\EmailImage.png" />
+    <None Remove="Images\LoginScreen\PasswordImage.png" />
+    <None Remove="Images\LoginScreen\Patient.png" />
+    <None Remove="Images\Main\AboutusImage.png" />
+    <None Remove="Images\Main\BackImage.png" />
+    <None Remove="Images\Main\CalendarHolesImage.png" />
+    <None Remove="Images\Main\CalendarWholeImage.png" />
+    <None Remove="Images\Main\InternetImage.png" />
+    <None Remove="Images\Main\MapImage.png" />
+    <None Remove="Images\Main\NewsImage.png" />
+    <None Remove="Images\Main\TelegramImage.png" />
+    <None Remove="Images\Main\UserImage.png" />
+    <None Remove="Images\Main\VkImage.png" />
+    <None Remove="Images\SingupScreen\EmailImage.png" />
+    <None Remove="Images\SingupScreen\PasswordImage.png" />
+    <None Remove="Images\SingupScreen\PhoneImage.png" />
+    <None Remove="Images\SingupScreen\UserImage.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Images\LoginScreen\CheckImage.png" />
+    <EmbeddedResource Include="Images\LoginScreen\Doctor.png" />
+    <EmbeddedResource Include="Images\LoginScreen\EmailImage.png" />
+    <EmbeddedResource Include="Images\LoginScreen\PasswordImage.png" />
+    <EmbeddedResource Include="Images\LoginScreen\Patient.png" />
+    <EmbeddedResource Include="Images\Main\AboutusImage.png" />
+    <EmbeddedResource Include="Images\Main\BackImage.png" />
+    <EmbeddedResource Include="Images\Main\CalendarHolesImage.png" />
+    <EmbeddedResource Include="Images\Main\CalendarWholeImage.png" />
+    <EmbeddedResource Include="Images\Main\InternetImage.png" />
+    <EmbeddedResource Include="Images\Main\MapImage.png" />
+    <EmbeddedResource Include="Images\Main\NewsImage.png" />
+    <EmbeddedResource Include="Images\Main\TelegramImage.png" />
+    <EmbeddedResource Include="Images\Main\UserImage.png" />
+    <EmbeddedResource Include="Images\Main\VkImage.png" />
+    <EmbeddedResource Include="Images\SingupScreen\EmailImage.png" />
+    <EmbeddedResource Include="Images\SingupScreen\PasswordImage.png" />
+    <EmbeddedResource Include="Images\SingupScreen\PhoneImage.png" />
+    <EmbeddedResource Include="Images\SingupScreen\UserImage.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Acr.UserDialogs" Version="7.1.0.514" />
+    <PackageReference Include="FirebaseAdmin" Version="2.3.0" />
+    <PackageReference Include="FirebaseAuthentication.net" Version="3.7.2" />
+    <PackageReference Include="FirebaseDatabase.net" Version="4.0.7" />
+    <PackageReference Include="Google.Cloud.Firestore" Version="2.5.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.1" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2337" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\NewsPage.xaml.cs">
+      <DependentUpon>NewsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\AdminViews\PageBrowseAppointments.xaml.cs">
+      <DependentUpon>PageBrowseAppointments.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="CustomControls\EntryForLoginPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CustomControls\ToogleTwoImages.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\AboutUs\AboutApplicationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\AboutUsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\AboutUs\ChatPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\AboutUs\DocumentsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\AboutUs\MapPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\NewsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\AdminViews\PageBrowseAppointments.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\AdminViews\StuffPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\AdminViews\TabbedAdminPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\LoginPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\PostPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ProfilePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\RegistrationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ServicesPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\SignUpPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\TabbedMainPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

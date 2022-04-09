@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Name="myPage"
+             x:Class="DemoHollywood.Views.AdminViews.StuffPage"
+             Title="пользователи">
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior EventName="Appearing"
+                                    Command="{Binding CommandOnAppearing}"/>
+    </ContentPage.Behaviors>
+    <ContentPage.Content>
+        <StackLayout>
+            <Entry Placeholder="искать..."
+                   Text="{Binding SearchText}">
+                <Entry.Behaviors>
+                    <xct:EventToCommandBehavior EventName="TextChanged"
+                                                Command="{Binding CommandOnSearchTextChanged}"/>
+                </Entry.Behaviors>
+            </Entry>
+            <ScrollView Orientation="Vertical"
+                        VerticalScrollBarVisibility="Never">
+                <StackLayout Orientation="Vertical">
+                    <ListView ItemsSource="{Binding Users}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell x:Name="cell">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding DisplayName}"/>
+                                        <Label Text="администратор"/>
+                                        <Switch IsToggled="{Binding IsAdmin}">
+                                            <Switch.Behaviors>
+                                                <xct:EventToCommandBehavior EventName="Toggled"
+                                                                            Command="{Binding BindingContext.CommandToggled,Source={x:Reference myPage}}"
+                                                                            CommandParameter="{Binding BindingContext,Source={x:Reference cell}}"/>
+                                            </Switch.Behaviors>
+                                        </Switch>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

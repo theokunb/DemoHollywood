@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cunstom="clr-namespace:DemoHollywood.CustomControls"
+             xmlns:local="clr-namespace:DemoHollywood.Helpers"
+             x:Class="DemoHollywood.Views.SignUpPage"
+             x:Name="content">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical"
+                     Margin="20,0">
+            <ScrollView VerticalScrollBarVisibility="Never"
+                        Orientation="Vertical"
+                        VerticalOptions="FillAndExpand">
+                <StackLayout Orientation="Vertical"
+                         Spacing="10">
+                    <StackLayout Orientation="Horizontal">
+                        <Image Source="{local:ImageResource Source=DemoHollywood.Images.Main.BackImage.png}"
+                               HorizontalOptions="Start"
+                               Margin="5">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="BackImageTapped"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Label Text="Стоматология Hollywood"
+                               Style="{x:StaticResource LabelHeaderStyle}"
+                               Margin="5"
+                               HorizontalOptions="Center"/>
+                    </StackLayout>
+                    <Label Text="коронная фраза..."/>
+
+                    <cunstom:EntryForLoginPage Image="{local:ImageResource Source=DemoHollywood.Images.SingupScreen.EmailImage.png}"
+                                           Text="{Binding Email,Mode=OneWayToSource,Source={x:Reference content}}"
+                                           Placeholder="email"
+                                           IsPassword="False"/>
+                    <cunstom:EntryForLoginPage Image="{local:ImageResource Source=DemoHollywood.Images.SingupScreen.PhoneImage.png}"
+                                           Text="{Binding Phone,Mode=OneWayToSource,Source={x:Reference content}}"
+                                           Placeholder="телефон"
+                                           IsPassword="False"/>
+                    <cunstom:EntryForLoginPage Image="{local:ImageResource Source=DemoHollywood.Images.SingupScreen.UserImage.png}"
+                                           Text="{Binding UserName,Mode=OneWayToSource,Source={x:Reference content}}"
+                                           Placeholder="псевдоним"
+                                           IsPassword="False"/>
+                    <cunstom:EntryForLoginPage Image="{local:ImageResource Source=DemoHollywood.Images.SingupScreen.PasswordImage.png}"
+                                           Text="{Binding Password,Mode=OneWayToSource,Source={x:Reference content}}"
+                                           Placeholder="пароль"
+                                           IsPassword="False"/>
+                    <StackLayout Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding AgreementAccepted}"/>
+                        <Label Text="Я соглашаюсь на обработку персональных данных"
+                           Style="{x:StaticResource LabelGrayStyle}"/>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+            <Button Text="регистрация"
+                    Clicked="ButtonSignUpClicked"
+                    Style="{x:StaticResource PrimaryButton}"
+                    VerticalOptions="EndAndExpand"
+                    Margin="0,10"
+                    IsEnabled="False">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding AgreementAccepted}" Value="True">
+                        <Setter Property="IsEnabled" Value="True"/>
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

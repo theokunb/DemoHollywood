@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DemoHollywood.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Color x:Key="PrimaryColor">#36B4EC</Color>
+            <Color x:Key="SecondayColor">#B4B4B4</Color>
+            <Color x:Key="RegularColor">#37373F</Color>
+            <Color x:Key="WhiteColor">#FCFCFC</Color>
+            <Style TargetType="Label"
+                   x:Key="LabelHeaderStyle">
+                <Setter Property="FontSize" Value="22"/>
+                <Setter Property="TextColor" Value="{x:StaticResource PrimaryColor}"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+            <Style TargetType="Label"
+                   x:Key="LabelGrayStyle">
+                <Setter Property="FontSize" Value="17"/>
+                <Setter Property="TextColor" Value="{x:StaticResource SecondayColor}"/>
+            </Style>
+            <Style TargetType="Label"
+                   x:Key="LabelRegularStyle">
+                <Setter Property="FontSize" Value="17"/>
+                <Setter Property="TextColor" Value="{x:StaticResource RegularColor}"/>
+            </Style>
+            <Style TargetType="Label"
+                   x:Key="LabelBlueStyle">
+                <Setter Property="FontSize" Value="17"/>
+                <Setter Property="TextColor" Value="{x:StaticResource PrimaryColor}"/>
+            </Style>
+            <Style TargetType="Entry"
+                   x:Key="RegularEntry">
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="TextColor" Value="{x:StaticResource RegularColor}"/>
+            </Style>
+            <Style TargetType="Button"
+                   x:Key="PrimaryButton">
+                <Setter Property="BackgroundColor" Value="{x:StaticResource PrimaryColor}"/>
+                <Setter Property="TextColor" Value="{x:StaticResource WhiteColor}"/>
+                <Setter Property="CornerRadius" Value="10"/>
+            </Style>
+            
+        </ResourceDictionary>
+        
+    </Application.Resources>
+</Application>

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:DemoHollywood.Helpers"
+             x:Class="DemoHollywood.Views.PostPage">
+    <ContentPage.Content>
+        <ScrollView Orientation="Vertical"
+                    VerticalScrollBarVisibility="Never">
+            <StackLayout Orientation="Vertical">
+                <Image Source="{local:ImageResource Source=DemoHollywood.Images.Main.BackImage.png}"
+                               HorizontalOptions="Start"
+                               Margin="5">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CommandBack}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label Text="{Binding Date}"
+                       Style="{x:StaticResource LabelGrayStyle}"/>
+                <Label Text="{Binding Text}"
+                       Style="{x:StaticResource LabelRegularStyle}"/>
+                <StackLayout BindableLayout.ItemsSource="{Binding Images}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding .}"
+                                   Aspect="AspectFill"/>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

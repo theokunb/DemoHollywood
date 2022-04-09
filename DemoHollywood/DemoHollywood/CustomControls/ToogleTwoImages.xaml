@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DemoHollywood.CustomControls.ToogleTwoImages"
+             xmlns:viewmodel="clr-namespace:DemoHollywood.ViewModels.CustomControls">
+    <ContentView.BindingContext>
+        <viewmodel:ToggleTwoImageViewModel/>
+    </ContentView.BindingContext>
+  <ContentView.Content>
+        <Frame BackgroundColor="Transparent"
+               BorderColor="Transparent"
+               Margin="-13">
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Frame BorderColor="#DBDFE0"
+                       HasShadow="{Binding Result}"
+                       x:Name="leftFrame"
+                       CornerRadius="5"
+                       Scale="1">
+                    <Frame.Triggers>
+                        <DataTrigger TargetType="Frame" Binding="{Binding Result}" Value="True">
+                            <Setter Property="Scale" Value="1.05"/>
+                        </DataTrigger>
+                    </Frame.Triggers>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CommandTapped}"
+                                              CommandParameter="0"/>
+                    </Frame.GestureRecognizers>
+                    <StackLayout Orientation="Vertical">
+                        <Image Source="{Binding LeftMainImage}"/>
+                        <Label Text="{Binding LeftText}"
+                               HorizontalOptions="Center"
+                               Style="{x:StaticResource LabelRegularStyle}"/>
+                        <Image Source="{Binding CheckImage}"
+                               IsVisible="{Binding Result}"
+                               x:Name="leftCheck"
+                               HorizontalOptions="End"
+                               Margin="-15"/>
+                    </StackLayout>
+                </Frame>
+                <Frame BorderColor="#DBDFE0"
+                       HasShadow="False"
+                       Scale="1"
+                       CornerRadius="5">
+                    <Frame.Triggers>
+                        <DataTrigger TargetType="Frame" Binding="{Binding HasShadow,Source={x:Reference leftFrame}}" Value="False">
+                            <Setter Property="HasShadow" Value="True"/>
+                            <Setter Property="Scale" Value="1.05"/>
+                        </DataTrigger>
+                    </Frame.Triggers>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CommandTapped}"
+                                              CommandParameter="1"/>
+                    </Frame.GestureRecognizers>
+                    <StackLayout Orientation="Vertical">
+                        <Image Source="{Binding RightMainImage}"/>
+                        <Label Text="{Binding RightText}"
+                               HorizontalOptions="Center"
+                               Style="{x:StaticResource LabelRegularStyle}"/>
+                        <Image Source="{Binding CheckImage}"
+                               IsVisible="False"
+                               HorizontalOptions="End"
+                               Margin="-15">
+                            <Image.Triggers>
+                                <DataTrigger TargetType="Image" Binding="{Binding IsVisible,Source={x:Reference leftCheck}}" Value="False">
+                                    <Setter Property="IsVisible" Value="True"/>
+                                </DataTrigger>
+                            </Image.Triggers>
+                        </Image>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </Frame>
+  </ContentView.Content>
+</ContentView>

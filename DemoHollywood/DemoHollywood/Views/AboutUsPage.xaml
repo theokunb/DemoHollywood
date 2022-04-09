@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DemoHollywood.Views.AboutUsPage"
+             xmlns:local="clr-namespace:DemoHollywood.Helpers"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             Title="О нас"
+             IconImageSource="{local:ImageResource Source=DemoHollywood.Images.Main.AboutusImage.png}">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical"
+                     Margin="10"
+                     Spacing="10">
+            <Grid Margin="0,0,0,30">
+                <Frame CornerRadius="200"
+                       WidthRequest="200"
+                       HeightRequest="200"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       IsClippedToBounds="True">
+                    <Image Source="{local:ImageResource Source=DemoHollywood.Images.Main.MapImage.png}"
+                           Margin="-50"/>
+                </Frame>
+                <Button Text="МЫ НА КАРТЕ"
+                        Style="{x:StaticResource PrimaryButton}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="End"
+                        Command="{Binding CommandButtonTapped}"
+                        CommandParameter="{Binding ParamMap}"/>
+            </Grid>
+            <Label Text="Контакты"
+                   Style="{x:StaticResource LabelHeaderStyle}"/>
+            <StackLayout Orientation="Horizontal"
+                         Margin="0,0,0,30">
+                <Button Text="Позвонить"
+                        Style="{x:StaticResource PrimaryButton}"
+                        HorizontalOptions="StartAndExpand"
+                        WidthRequest="180"
+                        x:Name="buttonCall"
+                        Command="{Binding CommandCallTapped}"
+                        CommandParameter="{Binding PhoneNumber}"/>
+                <Button Text="Написать"
+                        Style="{x:StaticResource PrimaryButton}"
+                        HorizontalOptions="EndAndExpand"
+                        Command="{Binding CommandWriteTapped}"
+                        WidthRequest="{Binding WidthRequest,Source={x:Reference buttonCall}}"/>
+            </StackLayout>
+            <Line HeightRequest="2"
+                  BackgroundColor="{x:StaticResource SecondayColor}"
+                  HorizontalOptions="FillAndExpand"
+                  VerticalOptions="Center"
+                  Opacity="0.5"/>
+            <FlexLayout JustifyContent="SpaceAround"
+                        Direction="Row"
+                        HeightRequest="50"
+                        Margin="0,10">
+                <Image Source="{local:ImageResource Source=DemoHollywood.Images.Main.VkImage.png}">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CommandRedirectToUrl}"
+                                              CommandParameter="{Binding UrlVk}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image Source="{local:ImageResource Source=DemoHollywood.Images.Main.TelegramImage.png}">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CommandRedirectToUrl}"
+                                              CommandParameter="{Binding UrlTelegram}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image Source="{local:ImageResource Source=DemoHollywood.Images.Main.InternetImage.png}">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CommandRedirectToUrl}"
+                                              CommandParameter="{Binding UrlSite}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+            </FlexLayout>
+            <Line HeightRequest="2"
+                  BackgroundColor="{x:StaticResource SecondayColor}"
+                  HorizontalOptions="FillAndExpand"
+                  VerticalOptions="Center"
+                  Opacity="0.5"
+                  Margin="0,0,0,30"/>
+            <Frame BorderColor="{x:StaticResource SecondayColor}"
+                   CornerRadius="10"
+                   HasShadow="False">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CommandButtonTapped}"
+                                          CommandParameter="{Binding ParamDocuments}"/>
+                </Frame.GestureRecognizers>
+                <Label Text="Документы"
+                       Style="{x:StaticResource LabelRegularStyle}"
+                       Margin="-5">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CommandButtonTapped}"
+                                              CommandParameter="{Binding ParamDocuments}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </Frame>
+            <Frame BorderColor="{x:StaticResource SecondayColor}"
+                   CornerRadius="10"
+                   HasShadow="False">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CommandButtonTapped}"
+                                          CommandParameter="{Binding ParamAbout}"/>
+                </Frame.GestureRecognizers>
+                <Label Text="О приложении"
+                       Style="{x:StaticResource LabelRegularStyle}"
+                       Margin="-5">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CommandButtonTapped}"
+                                              CommandParameter="{Binding ParamAbout}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

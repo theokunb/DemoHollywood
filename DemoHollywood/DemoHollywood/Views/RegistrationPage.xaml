@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="DemoHollywood.Views.RegistrationPage"
+             Title="Запись"
+             xmlns:local="clr-namespace:DemoHollywood.Helpers"
+             IconImageSource="{local:ImageResource Source=DemoHollywood.Images.Main.CalendarHolesImage.png}">
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior EventName="Appearing"
+                                    Command="{Binding CommandAppearing}"/>
+    </ContentPage.Behaviors>
+    
+    <ContentPage.Content>
+        <ScrollView VerticalScrollBarVisibility="Never"
+                    Orientation="Vertical">
+            <StackLayout Orientation="Vertical"
+                     Margin="10">
+                <StackLayout Orientation="Horizontal"
+                             Spacing="0">
+                    <Label Text="Приветсвуем, "
+                           HorizontalOptions="Start"
+                           VerticalOptions="Center"
+                           Style="{x:StaticResource LabelRegularStyle}"
+                           Margin="0,2,0,0"/>
+                    <Label Text="{Binding UserName}"
+                           Style="{x:StaticResource LabelHeaderStyle}"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start"/>
+                </StackLayout>
+                <Label Text="{Binding DisplayDescription}"
+                       Style="{x:StaticResource LabelRegularStyle}"/>
+                <StackLayout Orientation="Horizontal"
+                             Spacing="4"
+                             Margin="5">
+                    <Image Source="{local:ImageResource Source=DemoHollywood.Images.Main.CalendarWholeImage.png}">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ImageDatePickerTapped"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <DatePicker x:Name="appointDatePicker" 
+                                Date="{Binding SelectedDate}"
+                                HorizontalOptions="Start">
+                        <DatePicker.Behaviors>
+                            <xct:EventToCommandBehavior EventName="DateSelected"
+                                                        Command="{Binding CommandDateSelected}"
+                                                        CommandParameter="{Binding Date,Source={x:Reference appointDatePicker}}"/>
+                        </DatePicker.Behaviors>
+                    </DatePicker>
+                </StackLayout>
+                <ListView ItemsSource="{Binding Appointments}"
+                          SelectionMode="None"
+                          x:Name="ListAppointments"
+                          VerticalOptions="Start"
+                          Margin="0,10,0,0">
+                    <ListView.Behaviors>
+                        <xct:EventToCommandBehavior EventName="ItemTapped"
+                                                    Command="{Binding CommandAppointSelected}"
+                                                    CommandParameter="{Binding SelectedItem, Source={x:Reference ListAppointments}}"/>
+                    </ListView.Behaviors>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell IsEnabled="{Binding Value.IsEnabled}">
+                                <StackLayout Orientation="Horizontal"
+                                             Spacing="10">
+                                    <Label Text="{Binding Value.DisplayTime}"/>
+                                    <Label Text="{Binding Value.DisplayIsBusy}"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:viewmodel="clr-namespace:DemoHollywood.ViewModels"
+             x:Class="DemoHollywood.Views.NewsPage"
+             Title="Лента"
+             xmlns:local="clr-namespace:DemoHollywood.Helpers"
+             IconImageSource="{local:ImageResource Source=DemoHollywood.Images.Main.NewsImage.png}">
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior EventName="Appearing"
+                                    Command="{Binding CommandAppearing}">
+        </xct:EventToCommandBehavior>
+    </ContentPage.Behaviors>
+    <ContentPage.Content>
+        <ScrollView Orientation="Vertical"
+                    VerticalScrollBarVisibility="Never"
+                    x:Name="mainScroll">
+            <ScrollView.Behaviors>
+                <xct:EventToCommandBehavior EventName="Scrolled"
+                                            Command="{Binding CommandScroll}"
+                                            CommandParameter="{Binding .,Source={x:Reference mainScroll}}"/>
+            </ScrollView.Behaviors>
+            <StackLayout BindableLayout.ItemsSource="{Binding NewsPosts}"
+                         Spacing="0">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Margin="0,5">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding CommandNewsTapped,Source={x:RelativeSource AncestorType={x:Type viewmodel:NewsViewModel}}}"
+                                                      CommandParameter="{Binding .}"/>
+                            </Frame.GestureRecognizers>
+                            <StackLayout Orientation="Vertical"
+                                         Margin="-10">
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Date}"
+                                           Style="{x:StaticResource LabelGrayStyle}"/>
+                                    <Label Text="опубликовано вконтакте"
+                                           Style="{x:StaticResource LabelGrayStyle}"
+                                           FontSize="10"
+                                           VerticalOptions="Start"/>
+                                </StackLayout>
+                                <Label Text="{Binding Text}"
+                                       Style="{x:StaticResource LabelRegularStyle}"
+                                       MaxLines="10"
+                                       LineBreakMode="TailTruncation"/>
+                                <ScrollView Orientation="Horizontal"
+                                            HorizontalScrollBarVisibility="Never"
+                                            VerticalOptions="Fill"
+                                            HorizontalOptions="Fill">
+                                    <StackLayout Orientation="Horizontal"
+                                                 BindableLayout.ItemsSource="{Binding Images}">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <Image Source="{Binding .}"
+                                                       HorizontalOptions="FillAndExpand"
+                                                       VerticalOptions="FillAndExpand"
+                                                       Aspect="AspectFill"/>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
+                                </ScrollView>
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

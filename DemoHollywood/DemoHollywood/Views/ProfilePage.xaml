@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="DemoHollywood.Views.ProfilePage"
+             Title="Профиль"
+             xmlns:local="clr-namespace:DemoHollywood.Helpers"
+             IconImageSource="{local:ImageResource Source=DemoHollywood.Images.Main.UserImage.png}">
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior EventName="Appearing"
+                                    Command="{Binding CommandOnAppearing}"/>
+    </ContentPage.Behaviors>
+    <ContentPage.Content>
+        <StackLayout Margin="10">
+            <ScrollView VerticalScrollBarVisibility="Never"
+                        Orientation="Vertical">
+                <StackLayout Orientation="Vertical">
+                    <Label Text="Мои записи"
+                           Style="{x:StaticResource LabelHeaderStyle}"/>
+                    <ListView ItemsSource="{Binding Appointments}"
+                              SelectionMode="None"
+                              IsPullToRefreshEnabled="True"
+                              RefreshCommand="{Binding CommandPullRefresh}"
+                              IsRefreshing="{Binding IsListViewRefreshing}"
+                              x:Name="ListAppointments">
+                        <ListView.Behaviors>
+                            <xct:EventToCommandBehavior EventName="ItemTapped"
+                                                        Command="{Binding CommandAppointSelected}"
+                                                        CommandParameter="{Binding SelectedItem, Source={x:Reference ListAppointments}}"/>
+                        </ListView.Behaviors>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Orientation="Horizontal" Spacing="10">
+                                        <Label Text="{Binding DisplayDate}"/>
+                                        <Label Text="{Binding DisplayTime}"/>
+                                        <Label Text="{Binding DisplayService}"/>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                </StackLayout>
+            </ScrollView>
+            
+            
+            <Button Text="quit"
+                    Command="{Binding CommandButtonQuit}"
+                    VerticalOptions="End"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

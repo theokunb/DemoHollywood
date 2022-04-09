@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:customcontrol="clr-namespace:DemoHollywood.CustomControls"
+             xmlns:local="clr-namespace:DemoHollywood.Helpers"
+             xmlns:view="clr-namespace:DemoHollywood.Views"
+             x:Class="DemoHollywood.Views.LoginPage"
+             x:Name="content">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="Start"
+                     Spacing="15">
+            <Label Text="Выберите способ входа"
+                   Style="{x:StaticResource LabelHeaderStyle}"
+                   HorizontalOptions="Center"
+                   Padding="0,30,0,10"/>
+            <customcontrol:ToogleTwoImages LeftMainImage="{local:ImageResource Source=DemoHollywood.Images.LoginScreen.Doctor.png}"
+                                           LeftText="Доктор"
+                                           RightMainImage="{local:ImageResource Source=DemoHollywood.Images.LoginScreen.Patient.png}"
+                                           RightText="Пациент"
+                                           CheckImage="{local:ImageResource Source=DemoHollywood.Images.LoginScreen.CheckImage.png}"
+                                           Result="{Binding IsAdmin, Mode=OneWayToSource, Source={x:Reference content}}"
+                                           VerticalOptions="StartAndExpand"
+                                           HorizontalOptions="CenterAndExpand"
+                                           PropertyChanged="Toggle_PropertyChanged"/>
+            <Label Text="{Binding GreetingsText}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="StartAndExpand"
+                   HorizontalTextAlignment="Center"
+                   Style="{x:StaticResource LabelGrayStyle}"
+                   Margin="10,10,10,20"/>
+
+            <customcontrol:EntryForLoginPage Image="{local:ImageResource Source=DemoHollywood.Images.LoginScreen.EmailImage.png}"
+                                             Text="{Binding Email,Mode=OneWayToSource,Source={x:Reference content}}"
+                                             Placeholder="email"
+                                             IsPassword="False"
+                                             Margin="20,10"/>
+            <customcontrol:EntryForLoginPage Image="{local:ImageResource Source=DemoHollywood.Images.LoginScreen.PasswordImage.png}"
+                                             Text="{Binding Password,Mode=OneWayToSource,Source={x:Reference content}}"
+                                             Placeholder="пароль"
+                                             IsPassword="True"
+                                             Margin="20"/>
+            <StackLayout Orientation="Horizontal"
+                         Margin="20,15,0,0">
+                <StackLayout Orientation="Vertical"
+                             HorizontalOptions="Start">
+                    <Label Text="Нет учетной записи?"
+                       Style="{x:StaticResource LabelGrayStyle}"/>
+                    <Label Text="Зарегистрироваться"
+                       Style="{x:StaticResource LabelBlueStyle}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="SignUpTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+                <Button Text="Вход"
+                        Clicked="ButtonLoginClicked"
+                        HorizontalOptions="FillAndExpand"
+                        Margin="40,0"
+                        Style="{x:StaticResource PrimaryButton}"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

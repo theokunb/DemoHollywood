@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DemoHollywood.Views.ChatPage"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior EventName="Appearing"
+                                    Command="{Binding CommandAppearing}"/>
+    </ContentPage.Behaviors>
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Общий чат"
+                   Style="{x:StaticResource LabelHeaderStyle}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Start"/>
+            <ListView VerticalOptions="Fill"
+                      ItemsSource="{Binding Messages}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Label Text="{Binding DisplayMessage}"
+                                   Style="{x:StaticResource LabelRegularStyle}"/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackLayout Orientation="Horizontal">
+                <Frame BorderColor="{x:StaticResource SecondayColor}"
+                       HasShadow="False"
+                       HorizontalOptions="FillAndExpand">
+                    <Entry Text="{Binding Text}"
+                           Style="{x:StaticResource RegularEntry}"
+                           Placeholder="Сообщение"
+                           Margin="-20"/>
+                </Frame>
+                <Button Text=">"
+                        Command="{Binding CommandButtonSend}"
+                        HorizontalOptions="End"
+                        IsEnabled="{Binding CanSendMessage}"
+                        Style="{x:StaticResource PrimaryButton}"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
