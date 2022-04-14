@@ -13,8 +13,7 @@ namespace DemoHollywood.ViewModels
         public AboutUsViewModel(User user,ServiceManager serviceManager)
         {
             this.user = user;
-            realTimeDB = serviceManager.RealTimeDB;
-            storage = serviceManager.Storage;
+            this.serviceManager = serviceManager;
             CommandButtonTapped = new Command((param) => ButtonTapped(param));
             CommandCallTapped = new Command((param) => CallTapped(param));
             CommandWriteTapped = new Command((param) => WriteTapped(param));
@@ -24,8 +23,7 @@ namespace DemoHollywood.ViewModels
 
 
         private readonly User user;
-        private readonly RealTimeDB realTimeDB;
-        private readonly Storage storage;
+        private readonly ServiceManager serviceManager;
 
         public string UrlVk => Strings.UrlVk;
         public string UrlTelegram => Strings.UrlTelegram;
@@ -46,7 +44,7 @@ namespace DemoHollywood.ViewModels
             if (param.ToString().Equals(ParamMap))
                 await Application.Current.MainPage.Navigation.PushModalAsync(new MapPage());
             else if (param.ToString().Equals(ParamDocuments))
-                await Application.Current.MainPage.Navigation.PushModalAsync(new DocumentsPage(storage));
+                await Application.Current.MainPage.Navigation.PushModalAsync(new DocumentsPage(serviceManager));
             else if (param.ToString().Equals(ParamAbout))
                 await Application.Current.MainPage.Navigation.PushModalAsync(new AboutApplicationPage());
         }
@@ -56,7 +54,7 @@ namespace DemoHollywood.ViewModels
         }
         private async void WriteTapped(object param)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new ChatPage(user, realTimeDB));
+            await Application.Current.MainPage.Navigation.PushModalAsync(new ChatPage(user, serviceManager.RealTimeDB));
         }
         private async void RedirectToUrl(object param)
         {

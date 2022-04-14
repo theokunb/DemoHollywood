@@ -107,7 +107,7 @@ namespace DemoHollywood.Services
                 await Client.Child(path + "/" + removableElement.Key).DeleteAsync();
         }
 
-        public async Task<List<Document>> GetDocument(string path)
+        public async Task<List<Document>> GetDocuments(string path)
         {
             return (await Client.Child(path).OnceAsync<Document>()).Select(element => element.Object).ToList();
         }

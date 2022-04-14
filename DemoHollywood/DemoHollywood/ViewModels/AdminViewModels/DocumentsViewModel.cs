@@ -116,7 +116,7 @@ namespace DemoHollywood.ViewModels.AdminViewModels
 
         private async Task UpdateCollection()
         {
-            var collection = await serviceManager.RealTimeDB.GetDocument(Strings.Documents);
+            var collection = await serviceManager.RealTimeDB.GetDocuments(Strings.Documents);
             for(int i = Documents.Count - 1; i >= 0; i--)
             {
                 if (collection.Exists(element => element.Link == Documents[i].Link))

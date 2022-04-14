@@ -15,6 +15,14 @@ namespace DemoHollywood.Views
         public AboutApplicationPage()
         {
             InitializeComponent();
+            BindingContext = this;
+        }
+
+        public string Version => $"Сборка {Xamarin.Essentials.AppInfo.Version}";
+
+        private async void ImageBackTapped(object sender, EventArgs e)
+        {
+            await App.Current.MainPage.Navigation.PopModalAsync();
         }
     }
 }

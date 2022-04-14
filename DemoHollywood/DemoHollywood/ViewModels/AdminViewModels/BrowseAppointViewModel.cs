@@ -41,8 +41,13 @@ namespace DemoHollywood.ViewModels.AdminViewModels
         public ObservableCollection<AppointmentBig> Appointments { get; set; }
 
 
-        private void ButtonLogOutPerform(object param)
+        private async void ButtonLogOutPerform(object param)
         {
+            var dialogResult = await App.Current.MainPage.DisplayAlert("Внимание", "Вы действительно хотите выйти из системы?", "Да", "Нет");
+
+            if (!dialogResult)
+                return;
+
             Preferences.Remove(Strings.AuthToken);
             Preferences.Remove(Strings.PermissionToken);
             Application.Current.MainPage = new LoginPage(serviceManager);

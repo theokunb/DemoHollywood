@@ -3,10 +3,7 @@ using DemoHollywood.Models;
 using DemoHollywood.Services;
 using Firebase.Auth;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -22,6 +19,7 @@ namespace DemoHollywood.ViewModels
             Messages = new ObservableCollection<Message>();
             CommandButtonSend = new Command((param) => ButtonSend(param));
             CommandAppearing = new Command((param) => Appearing(param));
+            CommandBack = new Command(param => ButtonBack(param));
         }
 
 
@@ -43,6 +41,7 @@ namespace DemoHollywood.ViewModels
         }
         public bool CanSendMessage => !string.IsNullOrEmpty(Text);
 
+        public ICommand CommandBack { get; }
         public ICommand CommandButtonSend { get; }
         public ICommand CommandAppearing { get; }
         public ObservableCollection<Message> Messages { get; set; }
@@ -74,6 +73,10 @@ namespace DemoHollywood.ViewModels
                     Messages.Add(dbEvent.Object);
                 }
             });
+        }
+        private async void ButtonBack(object param)
+        {
+            await Application.Current.MainPage.Navigation.PopModalAsync();
         }
     }
 }

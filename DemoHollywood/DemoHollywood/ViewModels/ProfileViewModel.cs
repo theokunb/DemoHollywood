@@ -50,8 +50,13 @@ namespace DemoHollywood.ViewModels
         }
 
 
-        private void ButtonQuitTapped(object param)
+        private async void ButtonQuitTapped(object param)
         {
+            var dialogResult = await Application.Current.MainPage.DisplayAlert("Внимание", "Вы действительно хотите выйти из системы?", "Да", "Нет");
+
+            if (!dialogResult)
+                return;
+
             Preferences.Remove(Strings.AuthToken);
             Preferences.Remove(Strings.PermissionToken);
             Application.Current.MainPage = new LoginPage(serviceManager);

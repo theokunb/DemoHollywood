@@ -1,12 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:DemoHollywood.Helpers"
              x:Class="DemoHollywood.Views.AboutApplicationPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Orientation="Vertical">
+            <Image Source="{local:ImageResource Source=DemoHollywood.Images.Main.BackImage.png}"
+                   Margin="5"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Start">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="ImageBackTapped"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <StackLayout VerticalOptions="CenterAndExpand">
+                <Label Text="Стоматология Hollywood"
+                   HorizontalOptions="Center"
+                   Style="{x:StaticResource LabelRegularStyle}"/>
+                <Label Text="{Binding Version}"
+                   HorizontalOptions="Center"
+                   Style="{x:StaticResource LabelRegularStyle}"/>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

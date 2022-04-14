@@ -47,7 +47,9 @@
             
             <Button Text="quit"
                     Command="{Binding CommandButtonQuit}"
-                    VerticalOptions="End"/>
+                    VerticalOptions="End"
+                    Style="{x:StaticResource PrimaryButton}"
+                    Margin="5"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DemoHollywood.Views.ChatPage"
+             xmlns:local="clr-namespace:DemoHollywood.Helpers"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
     <ContentPage.Behaviors>
         <xct:EventToCommandBehavior EventName="Appearing"
@@ -9,10 +10,19 @@
     </ContentPage.Behaviors>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Общий чат"
-                   Style="{x:StaticResource LabelHeaderStyle}"
-                   HorizontalOptions="Center"
-                   VerticalOptions="Start"/>
+            <StackLayout Orientation="Horizontal"
+                         Margin="5">
+                <Image Source="{local:ImageResource Source=DemoHollywood.Images.Main.BackImage.png}"
+                       HorizontalOptions="Start">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CommandBack}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label Text="Общий чат"
+                       Style="{x:StaticResource LabelHeaderStyle}"
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="Start"/>
+            </StackLayout>
             <ListView VerticalOptions="Fill"
                       ItemsSource="{Binding Messages}">
                 <ListView.ItemTemplate>
@@ -24,7 +34,8 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <StackLayout Orientation="Horizontal">
+            <StackLayout Orientation="Horizontal"
+                         Margin="5">
                 <Frame BorderColor="{x:StaticResource SecondayColor}"
                        HasShadow="False"
                        HorizontalOptions="FillAndExpand">
