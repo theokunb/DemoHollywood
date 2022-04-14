@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:local="clr-namespace:DemoHollywood.Helpers"
+             xmlns:viewmodel="clr-namespace:DemoHollywood.ViewModels.AdminViewModels"
+             x:Class="DemoHollywood.Views.AdminViews.DocumentsPage">
+
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior EventName="Appearing"
+                                    Command="{Binding CommandOnAppearing}"/>
+    </ContentPage.Behaviors>
+    <ContentPage.Content>
+        <RefreshView Command="{Binding CommandRefreshView}"
+                     IsRefreshing="{Binding IsRefreshingView}">
+            <ScrollView Orientation="Vertical"
+                    VerticalScrollBarVisibility="Never">
+                <StackLayout Orientation="Vertical">
+                    <StackLayout Orientation="Horizontal"
+                                 Margin="5">
+                        <Image Source="{local:ImageResource Source=DemoHollywood.Images.Main.BackImage.png}"
+                               HorizontalOptions="StartAndExpand">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding CommandBack}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Button Text="Добавить"
+                                Style="{x:StaticResource PrimaryButton}"
+                                HorizontalOptions="EndAndExpand"
+                                Command="{Binding CommandAddDocument}"/>
+                    </StackLayout>
+                    <ProgressBar Progress="{Binding UploadingProgress}"
+                             IsVisible="{Binding IsUploading}"/>
+                    <StackLayout BindableLayout.ItemsSource="{Binding Documents}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Image Source="{Binding Link}"
+                                       Aspect="AspectFill"/>
+                                    <Button Text="x"
+                                            TextColor="Red"
+                                            BackgroundColor="Transparent"
+                                            Command="{Binding CommandRemoveItem,Source={x:RelativeSource AncestorType={x:Type viewmodel:DocumentsViewmodel}}}"
+                                            CommandParameter="{Binding .}"
+                                            VerticalOptions="Start"
+                                            HorizontalOptions="End"/>
+                                </Grid>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>

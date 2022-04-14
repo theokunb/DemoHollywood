@@ -16,17 +16,20 @@ namespace DemoHollywood.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage, INotifyPropertyChanged
     {
-        public LoginPage(FireBaseAuth fireBaseAuth, RealTimeDB realTimeDB)
+        public LoginPage(ServiceManager serviceManager)
         {
             InitializeComponent();
 
             BindingContext = this;
-            this.fireBaseAuth = fireBaseAuth;
-            this.realTimeDB = realTimeDB;
+            this.serviceManager = serviceManager;
+            fireBaseAuth = serviceManager.FireBaseAuth;
+            realTimeDB = serviceManager.RealTimeDB;
+
+
             pages = new Dictionary<bool, Page>
             {
-                { false, new TabbedMainPage(fireBaseAuth, realTimeDB) },
-                { true, new TabbedAdminPage(fireBaseAuth, realTimeDB) }
+                { false, new TabbedMainPage(serviceManager) },
+                { true, new TabbedAdminPage(serviceManager) }
             };
 
         }
@@ -34,6 +37,7 @@ namespace DemoHollywood.Views
         private bool isAdmin;
         private readonly FireBaseAuth fireBaseAuth;
         private readonly RealTimeDB realTimeDB;
+        private readonly ServiceManager serviceManager;
         private string email;
         private string password;
         private Dictionary<bool, Page> pages;
@@ -102,7 +106,7 @@ namespace DemoHollywood.Views
 
         private async void SignUpTapped(object sender, System.EventArgs e)
         {
-            await Navigation.PushModalAsync(new SignUpPage(fireBaseAuth, realTimeDB));
+            await Navigation.PushModalAsync(new SignUpPage(serviceManager));
         }
 
         private void Toggle_PropertyChanged(object sender, PropertyChangedEventArgs e)

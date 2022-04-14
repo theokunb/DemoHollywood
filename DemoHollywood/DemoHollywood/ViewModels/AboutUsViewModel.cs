@@ -10,10 +10,11 @@ namespace DemoHollywood.ViewModels
 {
     public class AboutUsViewModel : BaseViewModel
     {
-        public AboutUsViewModel(User user,RealTimeDB realTimeDB)
+        public AboutUsViewModel(User user,ServiceManager serviceManager)
         {
             this.user = user;
-            this.realTimeDB = realTimeDB;
+            realTimeDB = serviceManager.RealTimeDB;
+            storage = serviceManager.Storage;
             CommandButtonTapped = new Command((param) => ButtonTapped(param));
             CommandCallTapped = new Command((param) => CallTapped(param));
             CommandWriteTapped = new Command((param) => WriteTapped(param));
@@ -24,7 +25,7 @@ namespace DemoHollywood.ViewModels
 
         private readonly User user;
         private readonly RealTimeDB realTimeDB;
-
+        private readonly Storage storage;
 
         public string UrlVk => Strings.UrlVk;
         public string UrlTelegram => Strings.UrlTelegram;
@@ -45,7 +46,7 @@ namespace DemoHollywood.ViewModels
             if (param.ToString().Equals(ParamMap))
                 await Application.Current.MainPage.Navigation.PushModalAsync(new MapPage());
             else if (param.ToString().Equals(ParamDocuments))
-                await Application.Current.MainPage.Navigation.PushModalAsync(new DocumentsPage());
+                await Application.Current.MainPage.Navigation.PushModalAsync(new DocumentsPage(storage));
             else if (param.ToString().Equals(ParamAbout))
                 await Application.Current.MainPage.Navigation.PushModalAsync(new AboutApplicationPage());
         }

@@ -9,10 +9,10 @@ namespace DemoHollywood.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ProfilePage : ContentPage
     {
-        public ProfilePage(User currentUser,FireBaseAuth fireBaseAuth, RealTimeDB realTimeDB)
+        public ProfilePage(User currentUser,ServiceManager serviceManager)
         {
             InitializeComponent();
-            BindingContext = new ProfileViewModel(currentUser, fireBaseAuth, realTimeDB);
+            BindingContext = new ProfileViewModel(currentUser, serviceManager);
         }
     }
 }

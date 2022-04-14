@@ -92,5 +92,24 @@ namespace DemoHollywood.Services
             }
             return new KeyValuePair<bool, List<KeyValuePair<string, Appointment>>>(true, appoints);
         }
+
+        public async Task PostDocument(string path,Document document)
+        {
+            var content = JsonConvert.SerializeObject(document);
+            await Client.Child(path).PostAsync(content);
+        }
+
+        public async Task RemoveDocument(string path,string fileName)
+        {
+            var dictionary = (await Client.Child(path).OnceAsync<Document>()).Select(element => new KeyValuePair<string, Document>(element.Key, element.Object)).ToList();
+            var removableElement = dictionary.Find(element => element.Value.FileName == fileName);
+            if (removableElement.Value != null)
+                await Client.Child(path + "/" + removableElement.Key).DeleteAsync();
+        }
+
+        public async Task<List<Document>> GetDocument(string path)
+        {
+            return (await Client.Child(path).OnceAsync<Document>()).Select(element => element.Object).ToList();
+        }
     }
 }

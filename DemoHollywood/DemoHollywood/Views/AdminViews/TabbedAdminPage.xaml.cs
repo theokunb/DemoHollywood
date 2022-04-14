@@ -9,17 +9,15 @@ namespace DemoHollywood.Views.AdminViews
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TabbedAdminPage : TabbedPage
     {
-        public TabbedAdminPage(FireBaseAuth fireBaseAuth, RealTimeDB realTimeDB)
+        public TabbedAdminPage(ServiceManager serviceManager)
         {
             InitializeComponent();
-            this.fireBaseAuth = fireBaseAuth;
-            this.realTimeDB = realTimeDB;
+            this.serviceManager = serviceManager;
             isLoaded = false;
 
         }
 
-        private readonly FireBaseAuth fireBaseAuth;
-        private readonly RealTimeDB realTimeDB;
+        private readonly ServiceManager serviceManager;
         private bool isLoaded;
 
         protected override void OnAppearing()
@@ -29,8 +27,9 @@ namespace DemoHollywood.Views.AdminViews
 
             if (!isLoaded)
             {
-                Children.Add(new PageBrowseAppointments(fireBaseAuth, realTimeDB));
-                Children.Add(new StuffPage(fireBaseAuth, realTimeDB));
+                Children.Add(new PageBrowseAppointments(serviceManager));
+                Children.Add(new StuffPage(serviceManager));
+                Children.Add(new SettingsPage(serviceManager));
                 isLoaded = true;
             }
         }

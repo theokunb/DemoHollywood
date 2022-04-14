@@ -8,10 +8,10 @@ namespace DemoHollywood.Views.AdminViews
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class StuffPage : ContentPage
     {
-        public StuffPage(FireBaseAuth fireBaseAuth, RealTimeDB realTimeDB)
+        public StuffPage(ServiceManager serviceManager)
         {
             InitializeComponent();
-            BindingContext = new StuffViewModel(fireBaseAuth,realTimeDB);
+            BindingContext = new StuffViewModel(serviceManager);
         }
     }
 }

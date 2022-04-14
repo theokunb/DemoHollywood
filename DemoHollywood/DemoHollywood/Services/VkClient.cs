@@ -16,7 +16,7 @@ namespace DemoHollywood.Services
         private const string Version = "5.131";
         private readonly HttpClient httpClient;
 
-        public async Task<string> TestMethod1(string method,Dictionary<string,string> param)
+        public async Task<string> ExecuteMethod(string method,Dictionary<string,string> param)
         {
             StringBuilder stringBuilder = new StringBuilder();
             foreach(var element in param)

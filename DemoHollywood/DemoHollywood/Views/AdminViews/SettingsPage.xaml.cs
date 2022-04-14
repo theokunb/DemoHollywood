@@ -1,6 +1,5 @@
 ﻿using DemoHollywood.Services;
-using DemoHollywood.ViewModels;
-using Firebase.Auth;
+using DemoHollywood.ViewModels.AdminViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,15 +9,15 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace DemoHollywood.Views
+namespace DemoHollywood.Views.AdminViews
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AboutUsPage : ContentPage
+    public partial class SettingsPage : ContentPage
     {
-        public AboutUsPage(User user, ServiceManager serviceManager)
+        public SettingsPage(ServiceManager serviceManager)
         {
             InitializeComponent();
-            BindingContext = new AboutUsViewModel(user, serviceManager);
+            BindingContext = new SettingsViewModel(serviceManager);
         }
     }
 }

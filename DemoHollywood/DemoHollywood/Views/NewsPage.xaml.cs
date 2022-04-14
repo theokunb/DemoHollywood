@@ -1,4 +1,5 @@
-﻿using DemoHollywood.ViewModels;
+﻿using DemoHollywood.Services;
+using DemoHollywood.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -7,10 +8,10 @@ namespace DemoHollywood.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NewsPage : ContentPage
     {
-        public NewsPage()
+        public NewsPage(ServiceManager serviceManager)
         {
             InitializeComponent();
-            BindingContext = new NewsViewModel();
+            BindingContext = new NewsViewModel(serviceManager);
         }
     }
 }

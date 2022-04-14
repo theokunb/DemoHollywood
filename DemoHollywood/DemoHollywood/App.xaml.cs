@@ -12,25 +12,33 @@ namespace DemoHollywood
         public App()
         {
             InitializeComponent();
-            fireBaseAuth = new FireBaseAuth(authWebKey);
-            realTimeDB = new RealTimeDB(realTimeDatabaseToken);
+            FireBaseAuth fireBaseAuth = new FireBaseAuth(authWebKey);
+            RealTimeDB realTimeDB = new RealTimeDB(realTimeDatabaseToken);
+            VkClient vkClient = new VkClient();
+            Storage storage = new Storage(firebaseStorage);
+
+            serviceManager = new ServiceManager(realTimeDB, fireBaseAuth, vkClient, storage);
         }
 
         private const string realTimeDatabaseToken = "https://demohollywood-f65be-default-rtdb.europe-west1.firebasedatabase.app/";
         private const string authWebKey = "AIzaSyCVG2XXBnOoBBqITk71JwA8BFCEjeiaFzA";
-        private readonly FireBaseAuth fireBaseAuth;
-        private readonly RealTimeDB realTimeDB;
+        private const string firebaseStorage = "demohollywood-f65be.appspot.com";
+        
+
+        private readonly ServiceManager serviceManager;
+
+
 
         protected override void OnStart()
         {
             if (string.IsNullOrEmpty(Preferences.Get(Strings.AuthToken, string.Empty)))
-                MainPage = new LoginPage(fireBaseAuth, realTimeDB);
+                MainPage = new LoginPage(serviceManager);
             else
             {
                 if (Preferences.Get(Strings.PermissionToken, false))
-                    MainPage = new TabbedAdminPage(fireBaseAuth, realTimeDB);
+                    MainPage = new TabbedAdminPage(serviceManager);
                 else
-                    MainPage = new TabbedMainPage(fireBaseAuth, realTimeDB);
+                    MainPage = new TabbedMainPage(serviceManager);
             }
         }
 

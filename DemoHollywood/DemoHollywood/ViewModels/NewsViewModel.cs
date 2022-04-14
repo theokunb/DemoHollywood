@@ -15,9 +15,9 @@ namespace DemoHollywood.ViewModels
 {
     public class NewsViewModel : BaseViewModel
     {
-        public NewsViewModel()
+        public NewsViewModel(ServiceManager serviceManager)
         {
-            vkClient = new VkClient();
+            vkClient = serviceManager.VkClient;
             paramOffsetVal = "0";
             NewsPosts = new ObservableCollection<NewsPost>();
 

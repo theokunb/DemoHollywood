@@ -12,16 +12,14 @@ namespace DemoHollywood.Views
     public partial class TabbedMainPage : TabbedPage
     {
 
-        public TabbedMainPage(FireBaseAuth fireBaseAuth, RealTimeDB realTimeDB)
+        public TabbedMainPage(ServiceManager serviceManager)
         {
             InitializeComponent();
-            this.fireBaseAuth = fireBaseAuth;
-            this.realTimeDB = realTimeDB;
+            this.serviceManager = serviceManager;
             pageLoaded = false;
         }
 
-        private readonly FireBaseAuth fireBaseAuth;
-        private readonly RealTimeDB realTimeDB;
+        private readonly ServiceManager serviceManager;
         
         private bool pageLoaded;
         private User currentUser;
@@ -30,14 +28,17 @@ namespace DemoHollywood.Views
         {
             base.OnAppearing();
             Preferences.Set(Strings.PermissionToken, false);
-            if(!pageLoaded)
+            if (!pageLoaded)
             {
                 UserDialogs.Instance.ShowLoading("Идет подключение...");
-                currentUser = (await fireBaseAuth.GetProfileInfo()).User;
-                Children.Add(new RegistrationPage(currentUser, realTimeDB));
-                Children.Add(new ProfilePage(currentUser, fireBaseAuth, realTimeDB));
-                Children.Add(new NewsPage());
-                Children.Add(new AboutUsPage(currentUser, realTimeDB));
+
+                currentUser = (await serviceManager.FireBaseAuth.GetProfileInfo()).User;
+
+                Children.Add(new RegistrationPage(currentUser, serviceManager.RealTimeDB));
+                Children.Add(new ProfilePage(currentUser, serviceManager));
+                Children.Add(new NewsPage(serviceManager));
+                Children.Add(new AboutUsPage(currentUser, serviceManager));
+
                 pageLoaded = true;
                 UserDialogs.Instance.HideLoading();
             }

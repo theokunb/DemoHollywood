@@ -6,12 +6,12 @@ using Xamarin.Forms.Xaml;
 namespace DemoHollywood.Views.AdminViews
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PageBrowseAppointments : ContentPage
+    public partial class DocumentsPage : ContentPage
     {
-        public PageBrowseAppointments(ServiceManager serviceManager)
+        public DocumentsPage(ServiceManager serviceManager)
         {
             InitializeComponent();
-            BindingContext = new BrowseAppointViewModel(serviceManager);
+            BindingContext = new DocumentsViewmodel(serviceManager);
         }
     }
 }

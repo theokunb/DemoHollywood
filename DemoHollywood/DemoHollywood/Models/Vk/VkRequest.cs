@@ -35,7 +35,7 @@ namespace DemoHollywood.Models.Vk
 
         public async Task<string> SendRequest(VkClient vkClient)
         {
-            return await vkClient.TestMethod1(title, Param);
+            return await vkClient.ExecuteMethod(title, Param);
         }
     }
 }

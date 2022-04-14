@@ -12,10 +12,9 @@ namespace DemoHollywood.ViewModels.AdminViewModels
 {
     public class BrowseAppointViewModel : BaseViewModel
     {
-        public BrowseAppointViewModel(FireBaseAuth fireBaseAuth, RealTimeDB realTimeDB)
+        public BrowseAppointViewModel(ServiceManager serviceManager)
         {
-            this.fireBaseAuth = fireBaseAuth;
-            this.realTimeDB = realTimeDB;
+            this.serviceManager = serviceManager;
             Appointments = new ObservableCollection<AppointmentBig>();
 
             CommandAppearing = new Command((param) => OnAppearing(param));
@@ -24,8 +23,7 @@ namespace DemoHollywood.ViewModels.AdminViewModels
         }
 
         private DateTime selectedDate;
-        private readonly FireBaseAuth fireBaseAuth;
-        private readonly RealTimeDB realTimeDB;
+        private readonly ServiceManager serviceManager;
 
 
         public DateTime SelectedDate
@@ -42,11 +40,12 @@ namespace DemoHollywood.ViewModels.AdminViewModels
         public ICommand CommandDateSelected { get; }
         public ObservableCollection<AppointmentBig> Appointments { get; set; }
 
+
         private void ButtonLogOutPerform(object param)
         {
             Preferences.Remove(Strings.AuthToken);
             Preferences.Remove(Strings.PermissionToken);
-            Application.Current.MainPage = new LoginPage(fireBaseAuth, realTimeDB);
+            Application.Current.MainPage = new LoginPage(serviceManager);
         }
         private void OnAppearing(object param)
         {
@@ -55,12 +54,12 @@ namespace DemoHollywood.ViewModels.AdminViewModels
         private async void OnDateSelected(object param)
         {
             Appointments.Clear();
-            var collection = await realTimeDB.GetAppointents(SelectedDate.ToShortDateString().Replace('.', ':'));
+            var collection = await serviceManager.RealTimeDB.GetAppointents(SelectedDate.ToShortDateString().Replace('.', ':'));
             foreach(var element in collection)
             {
                 if (!string.IsNullOrEmpty(element.Value.AppointedUser))
                 {
-                    var appointedUser = await realTimeDB.GetUserData(Strings.TableUsers + "/" + element.Value.AppointedUser);
+                    var appointedUser = await serviceManager.RealTimeDB.GetUserData(Strings.TableUsers + "/" + element.Value.AppointedUser);
                     Appointments.Add(new AppointmentBig(element.Value, appointedUser.Value));
                 }
             }

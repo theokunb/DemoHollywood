@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DemoHollywood.Services;
+using DemoHollywood.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +14,10 @@ namespace DemoHollywood.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DocumentsPage : ContentPage
     {
-        public DocumentsPage()
+        public DocumentsPage(Storage storage)
         {
             InitializeComponent();
+            BindingContext = new DocumentsViewModel(storage);
         }
     }
 }

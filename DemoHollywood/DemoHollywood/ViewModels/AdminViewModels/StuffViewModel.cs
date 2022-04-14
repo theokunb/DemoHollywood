@@ -12,10 +12,10 @@ namespace DemoHollywood.ViewModels.AdminViewModels
 {
     public class StuffViewModel : BaseViewModel
     {
-        public StuffViewModel(FireBaseAuth fireBaseAuth, RealTimeDB realTimeDB)
+        public StuffViewModel(ServiceManager serviceManager)
         {
-            this.fireBaseAuth = fireBaseAuth;
-            this.realTimeDB = realTimeDB;
+            fireBaseAuth = serviceManager.FireBaseAuth;
+            realTimeDB = serviceManager.RealTimeDB;
             Users = new ObservableCollection<UserProfile>();
 
             CommandOnAppearing = new Command((param) => OnAppearing(param));

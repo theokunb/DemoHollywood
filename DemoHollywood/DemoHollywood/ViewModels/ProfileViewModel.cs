@@ -14,21 +14,21 @@ namespace DemoHollywood.ViewModels
 {
     public class ProfileViewModel : BaseViewModel
     {
-        public ProfileViewModel(User currentUser, FireBaseAuth fireBaseAuth, RealTimeDB realTimeDB)
+        public ProfileViewModel(User currentUser, ServiceManager serviceManager)
         {
-            this.fireBaseAuth = fireBaseAuth;
-            this.realTimeDB = realTimeDB;
+            this.serviceManager = serviceManager;
             this.currentUser = currentUser;
+
             CommandButtonQuit = new Command((param) => ButtonQuitTapped(param));
             CommandOnAppearing = new Command((param) => OnAppearing(param));
             CommandAppointSelected = new Command((param) => OnAppointSelected(param));
             CommandPullRefresh = new Command((param) => ListViewPulRefresh(param));
+
             appointParser = new AppointParser();
         }
 
         private AppointParser appointParser;
-        private readonly FireBaseAuth fireBaseAuth;
-        private readonly RealTimeDB realTimeDB;
+        private readonly ServiceManager serviceManager;
         private readonly User currentUser;
         private bool isListViewRefreshing;
 
@@ -54,14 +54,14 @@ namespace DemoHollywood.ViewModels
         {
             Preferences.Remove(Strings.AuthToken);
             Preferences.Remove(Strings.PermissionToken);
-            Application.Current.MainPage = new LoginPage(fireBaseAuth, realTimeDB);
+            Application.Current.MainPage = new LoginPage(serviceManager);
         }
 
         private async void OnAppearing(object param)
         {
             if(Appointments.Count == 0)
             {
-                var res = await realTimeDB.GetAppointents(Strings.TableAppointments + "/" + UserName);
+                var res = await serviceManager.RealTimeDB.GetAppointents(Strings.TableAppointments + "/" + UserName);
                 var displayCollection = appointParser.Parse(res);
                 foreach (var element in displayCollection)
                     Appointments.Add(element);
@@ -87,14 +87,14 @@ namespace DemoHollywood.ViewModels
                     TargetTable = element.Value.DisplayDate.Replace('.', ':'),
                     AppointKey = element.Value.AppointKey
                 };
-                realTimeDB.Post(request);
+                serviceManager.RealTimeDB.Post(request);
             }
             UserDialogs.Instance.HideLoading();
         }
         private async void ListViewPulRefresh(object param)
         {
             Appointments.Clear();
-            var res = await realTimeDB.GetAppointents(Strings.TableAppointments + "/" + UserName);
+            var res = await serviceManager.RealTimeDB.GetAppointents(Strings.TableAppointments + "/" + UserName);
             var displayCollection = appointParser.Parse(res);
             foreach (var element in displayCollection)
                 Appointments.Add(element);

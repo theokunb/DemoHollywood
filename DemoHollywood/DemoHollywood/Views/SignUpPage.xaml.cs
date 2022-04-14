@@ -12,11 +12,11 @@ namespace DemoHollywood.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SignUpPage : ContentPage
     {
-        public SignUpPage(FireBaseAuth fireBaseAuth, RealTimeDB realTimeDB)
+        public SignUpPage(ServiceManager serviceManager)
         {
             InitializeComponent();
-            this.fireBaseAuth = fireBaseAuth;
-            this.realTimeDB = realTimeDB;
+            fireBaseAuth = serviceManager.FireBaseAuth;
+            realTimeDB = serviceManager.RealTimeDB;
             BindingContext = this;
         }
 
