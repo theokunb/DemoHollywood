@@ -13,5 +13,10 @@ namespace DemoHollywood.Views
             InitializeComponent();
             BindingContext = new NewsViewModel(serviceManager);
         }
+
+        private void ScrollView_Scrolled(object sender, ScrolledEventArgs e)
+        {
+
+        }
     }
 }
