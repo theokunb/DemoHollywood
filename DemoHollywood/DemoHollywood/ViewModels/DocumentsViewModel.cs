@@ -50,11 +50,11 @@ namespace DemoHollywood.ViewModels
             foreach (var element in documents)
                 Documents.Add(element);
         }
-        private async void OnAppearing(object param)
+        private void OnAppearing(object param)
         {
             if (isLoad)
                 return;
-            await UpdateView();
+            IsRefreshing = true;
             isLoad = true;
         }
 
