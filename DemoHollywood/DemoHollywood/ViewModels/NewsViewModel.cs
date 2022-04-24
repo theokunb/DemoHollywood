@@ -5,8 +5,10 @@ using DemoHollywood.Models.Vk.Post;
 using DemoHollywood.Services;
 using DemoHollywood.Views;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -20,45 +22,48 @@ namespace DemoHollywood.ViewModels
             vkClient = serviceManager.VkClient;
             paramOffsetVal = "0";
             NewsPosts = new ObservableCollection<NewsPost>();
+            IsViewRefreshing = false;
+
 
             CommandNewsTapped = new Command((param) => NewsPageSelected(param));
             CommandScroll = new Command((param) => OnScrolled(param));
             CommandAppearing = new Command((param) => OnAppearing(param));
+            CommandViewRefresh = new Command(param => OnViewRefresh(param));
         }
 
 
         private VkClient vkClient;
         private string paramOffsetVal;
-        private VkResponse vkResponse;
+        private VkRequest vkRequest;
         private static KeyValuePair<string, string> paramDomain = new KeyValuePair<string, string>("domain", "hollywood_dental_ykt");
         private static KeyValuePair<string, string> paramCount = new KeyValuePair<string, string>("count", "10");
         private static KeyValuePair<string, string> paramFilter = new KeyValuePair<string, string>("filter", "owner");
         private const string paramOffsetKey = "offset";
         private const string methodTitle = "wall.get";
+        private bool isViewRefreshing;
 
 
+
+        public bool IsViewRefreshing
+        {
+            get=> isViewRefreshing;
+            set
+            {
+                isViewRefreshing = value;
+                OnPropertyChanged();
+            }
+        }
         public ICommand CommandNewsTapped { get; }
         public ICommand CommandScroll { get; }
         public ICommand CommandAppearing { get; }
+        public ICommand CommandViewRefresh { get; }
         public ObservableCollection<NewsPost> NewsPosts { get; set; }
 
-        private async void OnAppearing(object param)
+        private void OnAppearing(object param)
         {
             if (NewsPosts.Count != 0)
                 return;
-            VkRequest vkRequest = new VkRequest(methodTitle, new Dictionary<string, string>()
-            {
-                [paramDomain.Key] = paramDomain.Value,
-                [paramOffsetKey] = paramOffsetVal,
-                [paramCount.Key] = paramCount.Value,
-                [paramFilter.Key] = paramFilter.Value
-            });
-            var response = await vkRequest.SendRequest(vkClient);
-            vkResponse = JsonConvert.DeserializeObject<VkResponse>(response);
-
-            var newsPosts = vkResponse.ParseToNewsPost();
-            foreach (var post in newsPosts)
-                NewsPosts.Add(post);
+            IsViewRefreshing = true;
         }
 
         private async void NewsPageSelected(object param)
@@ -66,9 +71,34 @@ namespace DemoHollywood.ViewModels
             NewsPost selectedPost = param as NewsPost;
             await Application.Current.MainPage.Navigation.PushModalAsync(new PostPage(selectedPost));
         }
+
         private void OnScrolled(object param)
         {
             
         }
+
+        private async void OnViewRefresh(object param)
+        {
+            NewsPosts.Clear();
+            var newsPosts = await MakeRequest(methodTitle, paramDomain.Value, paramOffsetVal, paramCount.Value, paramFilter.Value);
+            await foreach (var post in newsPosts)
+                NewsPosts.Add(post);
+            IsViewRefreshing = false;
+        }
+        private async Task<IAsyncEnumerable<NewsPost>> MakeRequest(string method, string domain,string offset, string count,string filter)
+        {
+            vkRequest = new VkRequest(method, new Dictionary<string, string>()
+            {
+                [paramDomain.Key] = domain,
+                [paramOffsetKey] = offset,
+                [paramCount.Key] = count,
+                [paramFilter.Key] = filter
+            });
+            var response = await vkRequest.SendRequest(vkClient);
+            var vkResponse = JsonConvert.DeserializeObject<VkResponse>(response);
+
+            return vkResponse.ParseToNewsPost();
+        }
+
     }
 }

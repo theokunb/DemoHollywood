@@ -13,58 +13,61 @@
         </xct:EventToCommandBehavior>
     </ContentPage.Behaviors>
     <ContentPage.Content>
-        <ScrollView Orientation="Vertical"
+        <RefreshView IsRefreshing="{Binding IsViewRefreshing}"
+                     Command="{Binding CommandViewRefresh}">
+            <ScrollView Orientation="Vertical"
                     VerticalScrollBarVisibility="Never"
                     x:Name="mainScroll">
-            <ScrollView.Behaviors>
-                <xct:EventToCommandBehavior EventName="Scrolled"
+                <ScrollView.Behaviors>
+                    <xct:EventToCommandBehavior EventName="Scrolled"
                                             Command="{Binding CommandScroll}"
                                             CommandParameter="{Binding .,Source={x:Reference mainScroll}}"/>
-            </ScrollView.Behaviors>
-            <StackLayout BindableLayout.ItemsSource="{Binding NewsPosts}"
+                </ScrollView.Behaviors>
+                <StackLayout BindableLayout.ItemsSource="{Binding NewsPosts}"
                          Spacing="0">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate>
-                        <Frame Margin="0,5">
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding CommandNewsTapped,Source={x:RelativeSource AncestorType={x:Type viewmodel:NewsViewModel}}}"
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Margin="0,5">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding CommandNewsTapped,Source={x:RelativeSource AncestorType={x:Type viewmodel:NewsViewModel}}}"
                                                       CommandParameter="{Binding .}"/>
-                            </Frame.GestureRecognizers>
-                            <StackLayout Orientation="Vertical"
+                                </Frame.GestureRecognizers>
+                                <StackLayout Orientation="Vertical"
                                          Margin="-10">
-                                <StackLayout Orientation="Horizontal">
-                                    <Label Text="{Binding Date}"
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding Date}"
                                            Style="{x:StaticResource LabelGrayStyle}"/>
-                                    <Label Text="опубликовано вконтакте"
+                                        <Label Text="опубликовано вконтакте"
                                            Style="{x:StaticResource LabelGrayStyle}"
                                            FontSize="10"
                                            VerticalOptions="Start"/>
-                                </StackLayout>
-                                <Label Text="{Binding Text}"
+                                    </StackLayout>
+                                    <Label Text="{Binding Text}"
                                        Style="{x:StaticResource LabelRegularStyle}"
                                        MaxLines="10"
                                        LineBreakMode="TailTruncation"/>
-                                <ScrollView Orientation="Horizontal"
+                                    <ScrollView Orientation="Horizontal"
                                             HorizontalScrollBarVisibility="Never"
                                             VerticalOptions="Fill"
                                             HorizontalOptions="Fill">
-                                    <StackLayout Orientation="Horizontal"
+                                        <StackLayout Orientation="Horizontal"
                                                  BindableLayout.ItemsSource="{Binding Images}">
-                                        <BindableLayout.ItemTemplate>
-                                            <DataTemplate>
-                                                <Image Source="{Binding .}"
+                                            <BindableLayout.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Image Source="{Binding .}"
                                                        HorizontalOptions="FillAndExpand"
                                                        VerticalOptions="FillAndExpand"
                                                        Aspect="AspectFill"/>
-                                            </DataTemplate>
-                                        </BindableLayout.ItemTemplate>
-                                    </StackLayout>
-                                </ScrollView>
-                            </StackLayout>
-                        </Frame>
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </StackLayout>
-        </ScrollView>
+                                                </DataTemplate>
+                                            </BindableLayout.ItemTemplate>
+                                        </StackLayout>
+                                    </ScrollView>
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </ScrollView>
+        </RefreshView>
     </ContentPage.Content>
 </ContentPage>

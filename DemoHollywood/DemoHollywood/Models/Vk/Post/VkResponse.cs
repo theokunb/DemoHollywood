@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace DemoHollywood.Models.Vk.Post
 {
@@ -8,9 +9,8 @@ namespace DemoHollywood.Models.Vk.Post
     {
         public Response response { get; set; }
         
-        public List<NewsPost> ParseToNewsPost()
-        {
-            List<NewsPost> result = new List<NewsPost>();
+        public async IAsyncEnumerable<NewsPost> ParseToNewsPost()
+        {;
             foreach(var element in response.items)
             {
                 var text = RemoveHyperlink(element.text);
@@ -28,9 +28,9 @@ namespace DemoHollywood.Models.Vk.Post
                         }
                     }
                 }
-                result.Add(new NewsPost(date, text, urls));
+                await Task.Delay(1);
+                yield return new NewsPost(date, text, urls);
             }
-            return result;
         }
 
         private string RemoveHyperlink(string text)
