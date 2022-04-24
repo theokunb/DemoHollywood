@@ -14,6 +14,7 @@ namespace DemoHollywood.ViewModels
 {
     public class ProfileViewModel : BaseViewModel
     {
+        public ProfileViewModel() { }
         public ProfileViewModel(User currentUser, ServiceManager serviceManager)
         {
             this.serviceManager = serviceManager;
@@ -75,8 +76,7 @@ namespace DemoHollywood.ViewModels
 
         private async void OnAppointSelected(object param)
         {
-            var eventArgs = param as ItemTappedEventArgs;
-            var selectedItem = eventArgs.Item as AppointGroup;
+            var selectedItem = param as AppointGroup;
 
             var result = await Application.Current.MainPage.DisplayAlert("внимание", "отменить выбранную запись?", "да", "нет");
             if (!result)

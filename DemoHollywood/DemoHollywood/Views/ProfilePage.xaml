@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:DemoHollywood.ViewModels"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="DemoHollywood.Views.ProfilePage"
              Title="Профиль"
@@ -11,45 +12,51 @@
                                     Command="{Binding CommandOnAppearing}"/>
     </ContentPage.Behaviors>
     <ContentPage.Content>
-        <StackLayout Margin="10">
-            <ScrollView VerticalScrollBarVisibility="Never"
-                        Orientation="Vertical">
-                <StackLayout Orientation="Vertical">
-                    <Label Text="Мои записи"
+        <RefreshView IsRefreshing="{Binding IsListViewRefreshing}"
+                     Command="{Binding CommandPullRefresh}">
+            <StackLayout Margin="10">
+                <ScrollView VerticalScrollBarVisibility="Never"
+                            Orientation="Vertical">
+                    <StackLayout Orientation="Vertical">
+                        <Label Text="Мои записи"
                            Style="{x:StaticResource LabelHeaderStyle}"/>
-                    <ListView ItemsSource="{Binding Appointments}"
-                              SelectionMode="None"
-                              IsPullToRefreshEnabled="True"
-                              RefreshCommand="{Binding CommandPullRefresh}"
-                              IsRefreshing="{Binding IsListViewRefreshing}"
-                              x:Name="ListAppointments">
-                        <ListView.Behaviors>
-                            <xct:EventToCommandBehavior EventName="ItemTapped"
-                                                        Command="{Binding CommandAppointSelected}"
-                                                        CommandParameter="{Binding SelectedItem, Source={x:Reference ListAppointments}}"/>
-                        </ListView.Behaviors>
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <StackLayout Orientation="Horizontal" Spacing="10">
-                                        <Label Text="{Binding DisplayDate}"/>
-                                        <Label Text="{Binding DisplayTime}"/>
-                                        <Label Text="{Binding DisplayService}"/>
-                                    </StackLayout>
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
 
-                </StackLayout>
-            </ScrollView>
-            
-            
-            <Button Text="quit"
+                        <StackLayout Orientation="Vertical"
+                                     BindableLayout.ItemsSource="{Binding Appointments}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame BackgroundColor="Transparent"
+                                           BorderColor="{x:StaticResource PrimaryColor}"
+                                           CornerRadius="10">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewmodel:ProfileViewModel}},Path=CommandAppointSelected}"
+                                                                  CommandParameter="{Binding .}"/>
+                                        </Frame.GestureRecognizers>
+                                        <StackLayout Orientation="Vertical"
+                                                     Margin="-10">
+                                            <StackLayout Orientation="Horizontal" Spacing="10">
+                                                <Label Text="{Binding DisplayDate}"
+                                                   Style="{x:StaticResource LabelRegularStyle}"/>
+                                                <Label Text="{Binding DisplayTime}"
+                                                   Style="{x:StaticResource LabelRegularStyle}"/>
+                                            </StackLayout>
+                                            <Label Text="{Binding DisplayService}"
+                                               Style="{x:StaticResource LabelRegularStyle}"/>
+                                        </StackLayout>
+                                    </Frame>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+                    </StackLayout>
+                </ScrollView>
+
+
+                <Button Text="Выход"
                     Command="{Binding CommandButtonQuit}"
-                    VerticalOptions="End"
+                    VerticalOptions="EndAndExpand"
                     Style="{x:StaticResource PrimaryButton}"
                     Margin="5"/>
-        </StackLayout>
+            </StackLayout>
+        </RefreshView>
     </ContentPage.Content>
 </ContentPage>

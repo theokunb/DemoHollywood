@@ -63,8 +63,10 @@
                             <ViewCell IsEnabled="{Binding Value.IsEnabled}">
                                 <StackLayout Orientation="Horizontal"
                                              Spacing="10">
-                                    <Label Text="{Binding Value.DisplayTime}"/>
-                                    <Label Text="{Binding Value.DisplayIsBusy}"/>
+                                    <Label Text="{Binding Value.DisplayTime}"
+                                           Style="{x:StaticResource LabelRegularStyle}"/>
+                                    <Label Text="{Binding Value.DisplayIsBusy}"
+                                           Style="{x:StaticResource LabelRegularStyle}"/>
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>
