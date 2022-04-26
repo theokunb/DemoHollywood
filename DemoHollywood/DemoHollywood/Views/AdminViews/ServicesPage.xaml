@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:DemoHollywood.Helpers"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:viewmodel="clr-namespace:DemoHollywood.ViewModels.AdminViewModels"
+             x:Class="DemoHollywood.Views.AdminViews.ServicesPage">
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior EventName="Appearing"
+                                    Command="{Binding CommandAppearing}"/>
+    </ContentPage.Behaviors>
+    <ContentPage.Content>
+        <RefreshView IsRefreshing="{Binding IsViewRefreshing}"
+                     Command="{Binding CommandRefreshView}">
+            <StackLayout Orientation="Vertical">
+                <StackLayout Orientation="Horizontal"
+                             VerticalOptions="Start"
+                             HorizontalOptions="Fill">
+                    <Image Source="{local:ImageResource Source=DemoHollywood.Images.Main.BackImage.png}"
+                           HorizontalOptions="Start">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CommandBack}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Button Text="Add"
+                            HorizontalOptions="EndAndExpand"
+                            Style="{x:StaticResource PrimaryButton}"
+                            Command="{Binding CommandAddService}"/>
+                </StackLayout>
+                <ScrollView Orientation="Vertical"
+                            VerticalScrollBarVisibility="Never">
+                    <CarouselView ItemsSource="{Binding Services}"
+                                  Loop="False">
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate>
+                                <Button Text="edit"
+                                        Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewmodel:ServicesViewModel}},Path=CommandEdit}"
+                                        CommandParameter="{Binding .}"/>
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
+                </ScrollView>
+            </StackLayout>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>

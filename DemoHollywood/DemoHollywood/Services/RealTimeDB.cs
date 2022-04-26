@@ -111,5 +111,15 @@ namespace DemoHollywood.Services
         {
             return (await Client.Child(path).OnceAsync<Document>()).Select(element => element.Object).ToList();
         }
+
+        public async Task<IEnumerable<Service>> GetServices(string path)
+        {
+            return (await Client.Child(path).OnceAsync<Service>()).Select(element => element.Object);
+        }
+        public async Task PostDocument(string path, Service service)
+        {
+            var content = JsonConvert.SerializeObject(service);
+            await Client.Child(path).PostAsync(content);
+        }
     }
 }

@@ -11,6 +11,9 @@
                 <Button Text="Documents"
                         Style="{x:StaticResource PrimaryButton}"
                         Command="{Binding CommandDocuments}"/>
+                <Button Text="Services"
+                        Style="{x:StaticResource PrimaryButton}"
+                        Command="{Binding CommandServices}"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

@@ -40,6 +40,11 @@
                 <Setter Property="TextColor" Value="{x:StaticResource WhiteColor}"/>
                 <Setter Property="CornerRadius" Value="10"/>
             </Style>
+            <Style TargetType="Editor"
+                   x:Key="RegularEditor">
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="TextColor" Value="{x:StaticResource RegularColor}"/>
+            </Style>
             
         </ResourceDictionary>
         

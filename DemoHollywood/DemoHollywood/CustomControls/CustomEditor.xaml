@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:DemoHollywood.ViewModels.CustomControls"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="DemoHollywood.CustomControls.CustomEditor">
+    <ContentView.BindingContext>
+        <viewmodel:CustomEditorViewModel/>
+    </ContentView.BindingContext>
+  <ContentView.Content>
+        <Grid Margin="12">
+            <Frame BackgroundColor="Transparent"
+                   BorderColor="{x:StaticResource PrimaryColor}"
+                   CornerRadius="5"
+                   Margin="-10">
+                <Editor Text="{Binding Text}"
+                        Placeholder="{Binding Placeholder}"
+                        Style="{x:StaticResource RegularEditor}"
+                        VerticalOptions="Fill"
+                        HorizontalOptions="Fill"
+                        Margin="-10,-10">
+                    <Editor.Behaviors>
+                        <xct:EventToCommandBehavior EventName="TextChanged"
+                                                    Command="{Binding CommandTextChanged}"/>
+                        <xct:EventToCommandBehavior EventName="Focused"
+                                                    Command="{Binding CommandFocused}"
+                                                    CommandParameter="1"/>
+                        <xct:EventToCommandBehavior EventName="Unfocused"
+                                                    Command="{Binding CommandFocused}"
+                                                    CommandParameter="0"/>
+                    </Editor.Behaviors>
+                </Editor>
+            </Frame>
+            <Frame VerticalOptions="Start"
+                   HorizontalOptions="Start"
+                   Margin="10,-20,0,0"
+                   BackgroundColor="{x:StaticResource PrimaryColor}"
+                   IsVisible="{Binding IsFocused}">
+                <Label Text="{Binding Placeholder}"
+                       Margin="-15,-20"
+                       TextColor="{x:StaticResource WhiteColor}"
+                       FontSize="14"/>
+            </Frame>
+        </Grid>
+  </ContentView.Content>
+</ContentView>

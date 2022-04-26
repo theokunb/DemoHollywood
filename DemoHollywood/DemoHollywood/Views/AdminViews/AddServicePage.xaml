@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:DemoHollywood.Helpers"
+             xmlns:custom="clr-namespace:DemoHollywood.CustomControls"
+             xmlns:viewmodel="clr-namespace:DemoHollywood.ViewModels.AdminViewModels"
+             x:Class="DemoHollywood.Views.AdminViews.AddServicePage">
+    <ContentPage.Content>
+        <ScrollView Orientation="Vertical"
+                    VerticalScrollBarVisibility="Never">
+            <StackLayout Orientation="Vertical">
+                <StackLayout Orientation="Vertical"
+                             Margin="5">
+                    <StackLayout Orientation="Horizontal"
+                             Margin="5">
+                        <Image Source="{local:ImageResource Source=DemoHollywood.Images.Main.BackImage.png}"
+                               VerticalOptions="Start"
+                               HorizontalOptions="Start">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding CommandBack}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Label Text="AddService"
+                               Style="{x:StaticResource LabelHeaderStyle}"
+                               HorizontalOptions="CenterAndExpand"/>
+                    </StackLayout>
+                    <Frame Margin="5"
+                           CornerRadius="10">
+                        <Grid Margin="-20" HeightRequest="200">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="4*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Text="+"
+                                    Grid.Column="0"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                    Command="{Binding CommandSelectFile}"
+                                    Style="{x:StaticResource PrimaryButton}"/>
+                            <Image Source="{Binding FilePath}"
+                                   Grid.Column="1"
+                                   HorizontalOptions="Fill"
+                                   Aspect="AspectFit"/>
+                        </Grid>
+                    </Frame>
+                    <custom:EntryForLoginPage Text="{Binding Title, Mode=OneWayToSource,Source={x:RelativeSource AncestorType={x:Type viewmodel:AddServiceViewModel}}}"
+                                              Placeholder="title"/>
+                    <custom:EntryForLoginPage Text="{Binding Duration, Mode=OneWayToSource,Source={x:RelativeSource AncestorType={x:Type viewmodel:AddServiceViewModel}}}"
+                                              Placeholder="duration"/>
+                    <custom:EntryForLoginPage Text="{Binding Price, Mode=OneWayToSource,Source={x:RelativeSource AncestorType={x:Type viewmodel:AddServiceViewModel}}}"
+                                              Placeholder="price"/>
+                    <custom:CustomEditor Text="{Binding Description,Mode=OneWayToSource ,Source={x:RelativeSource AncestorType={x:Type viewmodel:AddServiceViewModel}}}"
+                                         Placeholder="Description"
+                                         HeightRequest="200"/>
+                </StackLayout>
+                <Button Text="Accept"
+                        Command="{Binding CommandAccept}"
+                        VerticalOptions="EndAndExpand"
+                        Style="{x:StaticResource PrimaryButton}"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
