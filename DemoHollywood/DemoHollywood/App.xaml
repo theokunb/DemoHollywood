@@ -9,22 +9,30 @@
             <Color x:Key="RegularColor">#37373F</Color>
             <Color x:Key="WhiteColor">#FCFCFC</Color>
             <Style TargetType="Label"
+                   x:Key="VirticallyCentredText">
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+            </Style>
+            <Style TargetType="Label"
+                   BasedOn="{x:StaticResource VirticallyCentredText}"
                    x:Key="LabelHeaderStyle">
                 <Setter Property="FontSize" Value="22"/>
                 <Setter Property="TextColor" Value="{x:StaticResource PrimaryColor}"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
             </Style>
             <Style TargetType="Label"
+                   BasedOn="{x:StaticResource VirticallyCentredText}"
                    x:Key="LabelGrayStyle">
                 <Setter Property="FontSize" Value="17"/>
                 <Setter Property="TextColor" Value="{x:StaticResource SecondayColor}"/>
             </Style>
             <Style TargetType="Label"
+                   BasedOn="{x:StaticResource VirticallyCentredText}"
                    x:Key="LabelRegularStyle">
                 <Setter Property="FontSize" Value="17"/>
                 <Setter Property="TextColor" Value="{x:StaticResource RegularColor}"/>
             </Style>
             <Style TargetType="Label"
+                   BasedOn="{x:StaticResource VirticallyCentredText}"
                    x:Key="LabelBlueStyle">
                 <Setter Property="FontSize" Value="17"/>
                 <Setter Property="TextColor" Value="{x:StaticResource PrimaryColor}"/>

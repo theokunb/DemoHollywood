@@ -12,35 +12,113 @@
     <ContentPage.Content>
         <RefreshView IsRefreshing="{Binding IsViewRefreshing}"
                      Command="{Binding CommandRefreshView}">
-            <StackLayout Orientation="Vertical">
+            <Grid>
+                <CarouselView ItemsSource="{Binding Services}"
+                              CurrentItem="{Binding CurrentService}"
+                              Loop="False">
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <ScrollView Orientation="Vertical">
+                                <Grid>
+                                    <Image Source="{Binding Value.ImagePath}"
+                                           Aspect="AspectFit"
+                                           VerticalOptions="Start"
+                                           Scale="2"
+                                           Margin="50"/>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="1*"/>
+                                            <RowDefinition Height="3*"/>
+                                        </Grid.RowDefinitions>
+                                        <Button Grid.Row="0"
+                                                BackgroundColor="Transparent"
+                                                BorderColor="Transparent"
+                                                Text="ред."
+                                                TextColor="{x:StaticResource WhiteColor}"
+                                                VerticalOptions="Center"
+                                                HorizontalOptions="End"
+                                                Command="{Binding CommandEditImage,Source={x:RelativeSource AncestorType={x:Type viewmodel:ServicesViewModel}}}"
+                                                CommandParameter="{Binding .}"
+                                                Margin="10"/>
+                                        <StackLayout Grid.Row="1"
+                                                    Orientation="Vertical">
+                                            <Frame Style="{x:StaticResource whiteFameRadius5}">
+                                                <StackLayout Orientation="Vertical"
+                                                             HorizontalOptions="Fill"
+                                                             VerticalOptions="Center"
+                                                             Margin="-10">
+                                                    <Entry Text="{Binding Value.Title}"
+                                                           Placeholder="Услуга"
+                                                           Style="{x:StaticResource RegularEntry}"
+                                                           HorizontalOptions="Fill"/>
+                                                    <Entry Text="{Binding Value.Price}"
+                                                           Placeholder="Цена"
+                                                           Style="{x:StaticResource RegularEntry}"
+                                                           HorizontalOptions="Fill"/>
+                                                </StackLayout>
+                                            </Frame>
+                                            <Frame Style="{x:StaticResource whiteFameRadius5}">
+                                                <Editor Text="{Binding Value.Description}"
+                                                        Style="{x:StaticResource RegularEditor}"
+                                                        HeightRequest="300"
+                                                        Margin="-10"/>
+                                            </Frame>
+                                            <Frame Style="{x:StaticResource whiteFameRadius5}">
+                                                <StackLayout Orientation="Vertical"
+                                                             Margin="-10">
+                                                    <Entry Text="{Binding Value.Duration}"
+                                                           Placeholder="Кол-во приёмов"
+                                                           Style="{x:StaticResource RegularEntry}"/>
+                                                    <Button Text="Сохранить"
+                                                            Style="{x:StaticResource PrimaryButton}"
+                                                            Command="{Binding CommandSave,Source={x:RelativeSource AncestorType={x:Type viewmodel:ServicesViewModel}}}"
+                                                            CommandParameter="{Binding .}"/>
+                                                </StackLayout>
+                                            </Frame>
+                                        </StackLayout>
+                                    </Grid>
+                                </Grid>
+                            </ScrollView>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
                 <StackLayout Orientation="Horizontal"
                              VerticalOptions="Start"
-                             HorizontalOptions="Fill">
+                             HorizontalOptions="Fill"
+                             Margin="10">
                     <Image Source="{local:ImageResource Source=DemoHollywood.Images.Main.BackImage.png}"
-                           HorizontalOptions="Start">
+                           HorizontalOptions="StartAndExpand">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding CommandBack}"/>
                         </Image.GestureRecognizers>
                     </Image>
-                    <Button Text="Add"
-                            HorizontalOptions="EndAndExpand"
-                            Style="{x:StaticResource PrimaryButton}"
+                    <Button Text="+"
+                            FontSize="20"
+                            TextColor="{x:StaticResource WhiteColor}"
+                            HorizontalOptions="End"
+                            BorderColor="Transparent"
+                            BackgroundColor="Transparent"
+                            WidthRequest="40"
                             Command="{Binding CommandAddService}"/>
+                    <Button Text="x"
+                            FontSize="20"
+                            TextColor="{x:StaticResource WhiteColor}"
+                            HorizontalOptions="End"
+                            BorderColor="Transparent"
+                            BackgroundColor="Transparent"
+                            WidthRequest="40"
+                            Command="{Binding CommandRemoveService}"/>
                 </StackLayout>
-                <ScrollView Orientation="Vertical"
-                            VerticalScrollBarVisibility="Never">
-                    <CarouselView ItemsSource="{Binding Services}"
-                                  Loop="False">
-                        <CarouselView.ItemTemplate>
-                            <DataTemplate>
-                                <Button Text="edit"
-                                        Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewmodel:ServicesViewModel}},Path=CommandEdit}"
-                                        CommandParameter="{Binding .}"/>
-                            </DataTemplate>
-                        </CarouselView.ItemTemplate>
-                    </CarouselView>
-                </ScrollView>
-            </StackLayout>
+            </Grid>
         </RefreshView>
     </ContentPage.Content>
+    
+    <ContentPage.Resources>
+        <Style TargetType="Frame"
+               x:Key="whiteFameRadius5">
+            <Setter Property="BackgroundColor" Value="{x:StaticResource WhiteColor}"/>
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="Margin" Value="15,0"/>
+        </Style>
+    </ContentPage.Resources>
 </ContentPage>
