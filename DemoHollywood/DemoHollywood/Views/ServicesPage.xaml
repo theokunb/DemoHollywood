@@ -11,36 +11,68 @@
                                     Command="{Binding CommandAppearing}"/>
     </ContentPage.Behaviors>
     <ContentPage.Content>
-        <StackLayout>
-            <Button Text="back"
-                    WidthRequest="100"
-                    HeightRequest="40"
-                    Command="{Binding CommandBack}"
-                    HorizontalOptions="Start"
-                    VerticalOptions="Start"/>
+        <Grid>
             <CarouselView ItemsSource="{Binding AvailableServices}"
-                          CurrentItem="{Binding CurrentService}"
                           Loop="False">
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
-                        <Grid>
-                            <Image Source="{Binding }"
-                                   Aspect="AspectFit"/>
-                            <ScrollView Orientation="Vertical"
+                        <ScrollView Orientation="Vertical"
                                     VerticalScrollBarVisibility="Never">
-                                <StackLayout Orientation="Vertical">
-                                    <Label Text="{Binding Title}"/>
-                                    <Label Text="{Binding Description}"/>
-                                    <Label Text="{Binding Duration}"/>
-                                    <Label Text="{Binding Price}"/>
-                                    <Button Text="записаться"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ServicesViewModel}},Path=CommandButtonReserve}"/>
-                                </StackLayout>
-                            </ScrollView>
-                        </Grid>
+                            <Grid>
+                                <Image Source="{Binding ImagePath}"
+                                       Aspect="AspectFit"
+                                       VerticalOptions="Start"
+                                       Scale="2"
+                                       Margin="50"/>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="3*"/>
+                                    </Grid.RowDefinitions>
+                                    <StackLayout Orientation="Vertical"
+                                                 Grid.Row="1">
+                                        <Frame Style="{x:StaticResource whiteFameRadius5}">
+                                            <StackLayout Orientation="Vertical">
+                                                <Label Text="{Binding DisplayTitle}"
+                                                       Style="{x:StaticResource LabelRegularStyle}"/>
+                                                <Label Text="{Binding DisplayPrice}"
+                                                       Style="{x:StaticResource LabelRegularStyle}"/>
+                                            </StackLayout>
+                                        </Frame>
+                                        <Frame Style="{x:StaticResource whiteFameRadius5}">
+                                            <StackLayout>
+                                                <Label Text="Описание:"
+                                                       Style="{x:StaticResource LabelRegularStyle}"/>
+                                                <Label Text="{Binding Description}"
+                                                       Style="{x:StaticResource LabelRegularStyle}"/>
+                                            </StackLayout>
+                                        </Frame>
+                                        <Frame Style="{x:StaticResource whiteFameRadius5}"
+                                               VerticalOptions="EndAndExpand">
+                                            <StackLayout Orientation="Vertical">
+                                                <Label Text="{Binding DisplayDuration}"
+                                                       Style="{x:StaticResource LabelRegularStyle}"/>
+                                                <Button Text="Записаться"
+                                                        Style="{x:StaticResource PrimaryButton}"
+                                                        Command="{Binding CommandButtonReserve,Source={x:RelativeSource AncestorType={x:Type viewmodels:ServicesViewModel}}}"/>
+                                            </StackLayout>
+                                        </Frame>
+                                    </StackLayout>
+                                </Grid>
+                            </Grid>
+                        </ScrollView>
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
             </CarouselView>
-        </StackLayout>
+
+            <Image Source="{local:ImageResource Source=DemoHollywood.Images.Main.BackImage.png}"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Start"
+                   Margin="10">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CommandBack}"/>
+                </Image.GestureRecognizers>
+            </Image>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

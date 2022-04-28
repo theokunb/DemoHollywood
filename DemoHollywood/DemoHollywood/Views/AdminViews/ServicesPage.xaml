@@ -112,13 +112,4 @@
             </Grid>
         </RefreshView>
     </ContentPage.Content>
-    
-    <ContentPage.Resources>
-        <Style TargetType="Frame"
-               x:Key="whiteFameRadius5">
-            <Setter Property="BackgroundColor" Value="{x:StaticResource WhiteColor}"/>
-            <Setter Property="CornerRadius" Value="5"/>
-            <Setter Property="Margin" Value="15,0"/>
-        </Style>
-    </ContentPage.Resources>
 </ContentPage>

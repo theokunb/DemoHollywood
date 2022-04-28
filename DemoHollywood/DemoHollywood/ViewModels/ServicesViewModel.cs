@@ -13,10 +13,13 @@ namespace DemoHollywood.ViewModels
 {
     public class ServicesViewModel : BaseViewModel
     {
+        public ServicesViewModel() { }
         public ServicesViewModel(RealTimeDB realTimeDB, ReueqstAppointments request)
         {
             this.realTimeDB = realTimeDB;
             this.request = request;
+
+
             CommandAppearing = new Command((param) => OnAppearing(param));
             CommandBack = new Command((param) => BackButtonTapped(param));
             CommandButtonReserve = new Command((param) => ReserveButtonTapped(param));
@@ -44,26 +47,15 @@ namespace DemoHollywood.ViewModels
         }
 
 
-        private void Subscribe()
+
+        private async void OnAppearing(object param)
         {
-            AvailableServices.Clear();
-            var collection = realTimeDB.Client.Child(Strings.TableServices).AsObservable<Service>().Subscribe((dbEvent) =>
+            var services = await realTimeDB.GetServices(Strings.TableServices);
+
+            foreach(var service in services)
             {
-                if (dbEvent.Object != null)
-                {
-                    if (AvailableServices.ToList().Exists(service => service.Title == dbEvent.Object.Title))
-                    {
-                        var repeating = AvailableServices.ToList().Find(appoint => appoint.Title == dbEvent.Object.Title);
-                        AvailableServices[AvailableServices.IndexOf(repeating)] = dbEvent.Object;
-                    }
-                    else
-                        AvailableServices.Add(dbEvent.Object);
-                }
-            });
-        }
-        private void OnAppearing(object param)
-        {
-            Subscribe();
+                AvailableServices.Add(service.Value);
+            }
         }
 
         private async void BackButtonTapped(object param)

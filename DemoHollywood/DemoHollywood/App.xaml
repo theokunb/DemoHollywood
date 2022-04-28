@@ -53,7 +53,12 @@
                 <Setter Property="FontSize" Value="20"/>
                 <Setter Property="TextColor" Value="{x:StaticResource RegularColor}"/>
             </Style>
-            
+            <Style TargetType="Frame"
+                   x:Key="whiteFameRadius5">
+                <Setter Property="BackgroundColor" Value="{x:StaticResource WhiteColor}"/>
+                <Setter Property="CornerRadius" Value="5"/>
+                <Setter Property="Margin" Value="15,0,15,5"/>
+            </Style>
         </ResourceDictionary>
         
     </Application.Resources>

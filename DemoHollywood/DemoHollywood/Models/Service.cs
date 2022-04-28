@@ -13,6 +13,9 @@ namespace DemoHollywood.Models
         public short Duration { get; set; }
         public int Price { get; set; }
 
+
+        public string DisplayTitle => $"Услуга: {Title}";
+        public string DisplayPrice => $"Стоимость: {Price}";
         public string DisplayDuration
         {
             get
