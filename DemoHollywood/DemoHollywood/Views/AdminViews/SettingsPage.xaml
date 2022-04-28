@@ -8,10 +8,10 @@
                     VerticalScrollBarVisibility="Never"
                     Margin="10,0">
             <StackLayout Orientation="Vertical">
-                <Button Text="Documents"
+                <Button Text="Документы"
                         Style="{x:StaticResource PrimaryButton}"
                         Command="{Binding CommandDocuments}"/>
-                <Button Text="Services"
+                <Button Text="Услуги"
                         Style="{x:StaticResource PrimaryButton}"
                         Command="{Binding CommandServices}"/>
             </StackLayout>

@@ -90,7 +90,9 @@ namespace DemoHollywood.ViewModels.AdminViewModels
                 return;
             isBusy = true;
             selectedFile = await MediaPicker.PickPhotoAsync();
-            FilePath = selectedFile.FullPath;
+
+            if (selectedFile != null)
+                FilePath = selectedFile.FullPath;
 
             isBusy = false;
         }

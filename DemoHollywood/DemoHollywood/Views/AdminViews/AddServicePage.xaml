@@ -20,7 +20,7 @@
                                 <TapGestureRecognizer Command="{Binding CommandBack}"/>
                             </Image.GestureRecognizers>
                         </Image>
-                        <Label Text="AddService"
+                        <Label Text="Добавление услуг"
                                Style="{x:StaticResource LabelHeaderStyle}"
                                HorizontalOptions="CenterAndExpand"/>
                     </StackLayout>
@@ -44,19 +44,20 @@
                         </Grid>
                     </Frame>
                     <custom:EntryForLoginPage Text="{Binding Title, Mode=OneWayToSource,Source={x:RelativeSource AncestorType={x:Type viewmodel:AddServiceViewModel}}}"
-                                              Placeholder="title"/>
+                                              Placeholder="Название"/>
                     <custom:EntryForLoginPage Text="{Binding Duration, Mode=OneWayToSource,Source={x:RelativeSource AncestorType={x:Type viewmodel:AddServiceViewModel}}}"
-                                              Placeholder="duration"/>
+                                              Placeholder="Длительность"/>
                     <custom:EntryForLoginPage Text="{Binding Price, Mode=OneWayToSource,Source={x:RelativeSource AncestorType={x:Type viewmodel:AddServiceViewModel}}}"
-                                              Placeholder="price"/>
+                                              Placeholder="Стоимость"/>
                     <custom:CustomEditor Text="{Binding Description,Mode=OneWayToSource ,Source={x:RelativeSource AncestorType={x:Type viewmodel:AddServiceViewModel}}}"
-                                         Placeholder="Description"
+                                         Placeholder="Описание"
                                          HeightRequest="200"/>
                 </StackLayout>
-                <Button Text="Accept"
+                <Button Text="Добавить"
                         Command="{Binding CommandAccept}"
                         VerticalOptions="EndAndExpand"
-                        Style="{x:StaticResource PrimaryButton}"/>
+                        Style="{x:StaticResource PrimaryButton}"
+                        Margin="5"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
